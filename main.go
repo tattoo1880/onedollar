@@ -4,16 +4,23 @@ import (
 	. "onedollarback/Config"
 	. "onedollarback/Model"
 	. "onedollarback/Router"
+	. "onedollarback/Service"
 )
 
 func main() {
-
 	InitMyDb()
 	var err error
 	err = MysqlDB.AutoMigrate(&User{})
 	if err != nil {
 		Logger.Error("数据库迁移失败")
 	}
+
+	// 2. 初始化RabbitMQ
+	NewRabbitMQ()
+	defer MyRabbitMQ.Close()
+
+	// 3. go ConsumeService("onedollarback")
+	go ConsumeService("onedollarback")
 
 	r := InitRouter()
 	// 1. 静态文件服务

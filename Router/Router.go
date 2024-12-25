@@ -16,6 +16,7 @@ func InitRouter() *gin.Engine {
 		userapi.POST("/update", UpdateUser)
 		userapi.POST("/delete", DeleteUserByID)
 		userapi.GET("/getall", GetAllUsers)
+		userapi.POST("/send", ReciveRabbitMQ)
 	}
 
 	return r
