@@ -16,7 +16,8 @@ func main() {
 	}
 
 	r := InitRouter()
-
+	// 1. 静态文件服务
+	r.Static("/static", "./static")
 	err1 := r.Run("127.0.0.1:8080")
 	if err1 != nil {
 		Logger.Error("路由启动失败")

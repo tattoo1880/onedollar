@@ -8,6 +8,7 @@ import (
 func InitRouter() *gin.Engine {
 
 	r := gin.Default()
+
 	userapi := r.Group("/user")
 	{
 		userapi.POST("/create", CreateUser)
